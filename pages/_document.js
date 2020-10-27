@@ -26,16 +26,4 @@ export default class MyDocument extends Document {
       sheet.seal();
     }
   }
-
-  render() {
-    return (
-      <Html>
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
 }

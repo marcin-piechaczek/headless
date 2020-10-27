@@ -23,15 +23,9 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended'
   ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    },
-    ecmaVersion: 12,
-    sourceType: 'module'
-  },
   plugins: ['react', 'simple-import-sort'],
   rules: {
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/anchor-is-valid': [
