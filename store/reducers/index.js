@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import exampleReducer from './Example/exampleReducer';
+import storeSettings from './root/storeSettings';
 
 export default combineReducers({
-  exampleReducer
+  storeSettings
 });

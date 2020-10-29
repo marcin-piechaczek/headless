@@ -5,6 +5,8 @@ import { ThemeProvider } from 'styled-components';
 import theme from '../styles/Theme';
 import { useApollo } from '../lib/apollo';
 import GlobalStyle from '../styles/GlobalStyle';
+import Layout from '../components/Layouts/Layout';
+import '../styles/tailwind.css';
 
 function MyApp({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);
@@ -15,7 +17,9 @@ function MyApp({ Component, pageProps }) {
       <ApolloProvider client={apolloClient}>
         <GlobalStyle />
         <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ThemeProvider>
       </ApolloProvider>
     </Provider>

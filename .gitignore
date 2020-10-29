@@ -36,3 +36,4 @@ yarn-error.log*
 
 # other
 .idea
+.vscode
