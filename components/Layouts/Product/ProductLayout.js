@@ -22,7 +22,7 @@ const ProductLayout = ({ search, filters }) => {
     <>
       <div className="container mx-auto flex flex-wrap flex-row gap-4">
         {products.map((product) => (
-          <div className="flex">
+          <div key={product.id} className="flex">
             <div className="flex max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
               <Image
                 src={resolveImage(product.thumbnail.url)}

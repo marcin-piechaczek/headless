@@ -3,7 +3,7 @@ const { URL } = require('url');
 
 module.exports = {
   images: {
-    domains: ['magento.piechaczek.dev', 'localhost']
+    domains: [process.env.IMAGE_DOMAIN]
   },
   env: {
     STOREFRONT_URL: process.env.STOREFRONT_URL,
