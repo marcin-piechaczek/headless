@@ -3,11 +3,13 @@ const { URL } = require('url');
 
 module.exports = {
   images: {
-    domains: [process.env.IMAGE_DOMAIN]
+    domains: [process.env.IMAGE_DOMAIN, process.env.VERCEL_URL]
   },
   env: {
     STOREFRONT_URL: process.env.STOREFRONT_URL,
-    MAGENTO_URL: process.env.MAGENTO_URL
+    MAGENTO_URL: process.env.MAGENTO_URL,
+    IMAGE_DOMAIN: process.env.IMAGE_DOMAIN,
+    VERCEL_URL: process.env.VERCEL_URL
   },
   webpack: (config) => {
     config.module.rules.push({
