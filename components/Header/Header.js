@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from '@apollo/client';
 import { resolveImage } from '../../lib/resolve-image';
+import { getCart } from '../../store/reducers/root/cart';
+import { cartTypes } from '../../store/actions/cart';
+import GET_CART_ID from '../../queries/cart/CartId.graphql';
+import GET_CART_ITEMS from '../../queries/cart/CartItems.graphql';
 
 const Header = ({ categoryList, store }) => {
+  const dispatch = useDispatch();
+  const { isCartOpen } = useSelector(getCart);
+  const { data } = useQuery(GET_CART_ID);
+  const cartId = data?.CartId;
+
+  const { data: products } = useQuery(GET_CART_ITEMS, {
+    variables: {
+      cartId
+    },
+    skip: !cartId
+  });
+
+  const quantity = products?.cart.total_quantity;
+
   const logo = store?.header_logo_src
     ? resolveImage(store.base_media_url + 'logo/' + store.header_logo_src)
     : '/static/logo.png';
+
+  const toggleCart = () => {
+    dispatch({
+      type: cartTypes.STORE_SETTINGS_TOGGLE_CART,
+      data: !isCartOpen
+    });
+  };
   return (
     <>
       <header>
@@ -97,6 +125,7 @@ const Header = ({ categoryList, store }) => {
                   {/*<span className="text-gray-400">Search</span>*/}
                 </div>
                 <button
+                  onClick={toggleCart}
                   className="p-1 border-2 border-transparent text-gray-400 m-3 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
                   aria-label="Notifications">
                   <svg
@@ -114,6 +143,7 @@ const Header = ({ categoryList, store }) => {
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <path d="M16 10a4 4 0 0 1-8 0"></path>
                   </svg>
+                  {quantity > 0 && <CartItemsStyled>{quantity}</CartItemsStyled>}
                 </button>
 
                 <div className="ml-3 relative">
@@ -200,5 +230,19 @@ const Header = ({ categoryList, store }) => {
     </>
   );
 };
+
+const CartItemsStyled = styled.span`
+  position: absolute;
+  font-size: 11px;
+  background: white;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  top: 5px;
+  color: black;
+  &:hover {
+    color: black;
+  }
+`;
 
 export default Header;

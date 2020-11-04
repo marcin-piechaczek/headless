@@ -21,6 +21,7 @@ query ProductsQuery(
       id
       url_key
       name
+      sku
 
       thumbnail {
         id: url

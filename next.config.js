@@ -41,7 +41,10 @@ module.exports = {
         source: '/store/:pathname*',
         destination: '/api/proxy'
       },
-
+      {
+        source: `/checkout`,
+        destination: `/checkout`
+      },
       /**
        * URlResolver 🙌
        */

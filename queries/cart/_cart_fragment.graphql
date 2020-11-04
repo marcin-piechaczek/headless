@@ -1,0 +1,31 @@
+fragment cart_items on Cart {
+    id
+    prices {
+        grand_total {
+            value
+            currency
+        }
+    }
+    total_quantity,
+    items {
+        id,
+        prices {
+            price {
+                currency
+                value
+            }
+        }
+        product {
+            id
+            name
+            sku
+            thumbnail {
+                id: url
+                url
+                label
+            }
+        }
+        quantity
+    }
+
+}

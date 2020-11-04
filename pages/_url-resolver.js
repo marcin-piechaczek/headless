@@ -9,15 +9,21 @@ import useCategories from '../hooks/useCategories';
 import useProducts from '../hooks/useProducts';
 import useProduct from '../hooks/useProduct';
 import useAppConfig from '../hooks/useAppConfig';
+import { useRouter } from 'next/router';
+import useCreateCart from '../hooks/useCreateCart';
 
 const CONTENT_TYPE = {
   CMS_PAGE: 'CMS_PAGE',
   CATEGORY: 'CATEGORY',
   PRODUCT: 'PRODUCT',
+  CHECKOUT: 'CHECKOUT',
   NOT_FOUND: '404'
 };
 
 const URLResolver = ({ type, urlKey }) => {
+  const router = useRouter();
+  console.log(type, urlKey);
+
   if (type === CONTENT_TYPE.CMS_PAGE) {
     return <CmsPageLayout />;
   }
@@ -35,6 +41,11 @@ const URLResolver = ({ type, urlKey }) => {
 
 URLResolver.getInitialProps = async ({ req, res, query }) => {
   res?.setHeader('cache-control', 's-maxage=1, stale-while-revalidate');
+  const isBrowser = typeof window !== 'undefined';
+
+  if (isBrowser) {
+    await useCreateCart();
+  }
 
   const apolloClient = initializeApollo();
 
@@ -73,6 +84,10 @@ URLResolver.getInitialProps = async ({ req, res, query }) => {
         if (/PRODUCTS/.test(data.categoryList[0]?.display_mode)) {
           const productsVar = { variables: { filters: { category_id: { eq: id } } } };
           await useProducts(productsVar, apolloClient);
+          // res.writeHead(200, {
+          //   Location: '/product/dupa.html'
+          // });
+          // res.end();
         }
         break;
       case CONTENT_TYPE.PRODUCT:

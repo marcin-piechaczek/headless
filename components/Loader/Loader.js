@@ -28,5 +28,6 @@ const LoaderWrapperStyled = styled.div`
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 100px);
+  width: 100%;
 `;
 export default Loader;
