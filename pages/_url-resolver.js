@@ -21,9 +21,6 @@ const CONTENT_TYPE = {
 };
 
 const URLResolver = ({ type, urlKey }) => {
-  const router = useRouter();
-  console.log(type, urlKey);
-
   if (type === CONTENT_TYPE.CMS_PAGE) {
     return <CmsPageLayout />;
   }

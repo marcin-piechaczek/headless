@@ -11,7 +11,7 @@ import { cartTypes } from '../../store/actions/cart';
 import GET_CART_ITEMS from '../../queries/cart/CartItems.graphql';
 
 const Cart2 = () => {
-  const { data, loading } = useQuery(GET_CART_ID);
+  const { data } = useQuery(GET_CART_ID);
   const cartId = data?.CartId;
 
   const { data: products } = useQuery(GET_CART_ITEMS, {

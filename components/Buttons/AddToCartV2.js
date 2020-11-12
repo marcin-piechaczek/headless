@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import { useEffect, useState } from 'react';
 import useCreateCart from '../../hooks/useCreateCart';
 import GET_CART_ID from '../../queries/cart/CartId.graphql';
 import useAddSimplePorductsToCart from '../../hooks/addSimpleProductsToCart';
@@ -9,7 +10,8 @@ const AddToCartV2 = ({ product }) => {
 
   const addItemToCart = async () => {
     if (!cartId && !loading) {
-      await useCreateCart();
+      const { data: newCartId } = await useCreateCart();
+      await useAddSimplePorductsToCart(newCartId, product.sku);
     }
 
     if (cartId) {

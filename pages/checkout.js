@@ -1,10 +1,12 @@
-const Checkout = () => {
+import React from 'react';
+import CheckoutLayout from '../components/Layouts/Checkout/Checkout';
+
+const CheckoutPage = () => {
   return (
     <>
-      <h1>Checkout</h1>
-      <h1>Page</h1>
+      <CheckoutLayout />
     </>
   );
 };
 
-export default Checkout;
+export default CheckoutPage;

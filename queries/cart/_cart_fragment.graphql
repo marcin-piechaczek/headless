@@ -1,5 +1,8 @@
+#import "../checkout/_shippingAddressesFragment.graphql"
+
 fragment cart_items on Cart {
     id
+    email
     prices {
         grand_total {
             value
@@ -27,5 +30,5 @@ fragment cart_items on Cart {
         }
         quantity
     }
-
+    ...shippingAddresses
 }

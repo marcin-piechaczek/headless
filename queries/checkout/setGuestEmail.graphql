@@ -1,0 +1,11 @@
+#import "./_shippingAddressesFragment.graphql"
+
+mutation setGuestEmail($cartId: String!, $email: String!) {
+    setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
+        cart {
+            id
+            email
+            ...shippingAddresses
+        }
+    }
+}
