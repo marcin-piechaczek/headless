@@ -1,13 +1,11 @@
-#import "./_shippingAddressesFragment.graphql"
+#import "../cart/_cart_fragment.graphql"
 
 mutation SetPaymentMethod($cartId: String!, $paymentMethod: String!) {
     setPaymentMethodOnCart(
         input: { cart_id: $cartId, payment_method: { code: $paymentMethod } }
     ) {
         cart {
-            id
-            email
-            ...shippingAddresses
+            ...cart_items
         }
     }
 }

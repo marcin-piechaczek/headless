@@ -1,4 +1,4 @@
-#import "./_shippingAddressesFragment.graphql"
+#import "../cart/_cart_fragment.graphql"
 
 mutation SetShippingAddress(
     $cartId: String!
@@ -8,7 +8,7 @@ mutation SetShippingAddress(
         input: { cart_id: $cartId, shipping_addresses: [{ address: $shippingAddress }] }
     ) {
         cart {
-            ...shippingAddresses
+            ...cart_items
         }
     }
 }

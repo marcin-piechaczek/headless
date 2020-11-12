@@ -1,4 +1,4 @@
-#import "./_shippingAddressesFragment.graphql"
+#import "../cart/_cart_fragment.graphql"
 
 mutation SetShippingMethod(
     $cartId: String!
@@ -14,9 +14,7 @@ mutation SetShippingMethod(
             } }
     ) {
         cart {
-            id
-            email
-            ...shippingAddresses
+            ...cart_items
         }
     }
 }

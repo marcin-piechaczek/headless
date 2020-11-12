@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Field, useField, useFormikContext } from 'formik';
 
-const Region = ({ name, countries }) => {
+const Region = (props) => {
+  const { name, countries } = props;
   const {
     values: { country_code },
     touched,
     setFieldValue
   } = useFormikContext();
 
-  const [meta] = useField(name);
+  const [field, meta] = useField(props);
   const [availableRegions, setAvailableRegions] = useState(null);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const Region = ({ name, countries }) => {
       const { available_regions } = countries.find((item) => item.id === country_code);
       setAvailableRegions(available_regions);
     }
-  }, [countries, country_code, touched.country_code, touched.country_code, setFieldValue, name]);
+  }, [countries, country_code, touched.country_code, setFieldValue, name]);
 
   return (
     <>
@@ -45,6 +46,9 @@ const Region = ({ name, countries }) => {
                   </option>
                 ))}
               </Field>
+              {!!meta.touched && !!meta.error && (
+                <p className="text-red-500 text-xs italic">{meta.error}</p>
+              )}
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
                   className="fill-current h-4 w-4"

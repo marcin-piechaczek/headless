@@ -11,9 +11,10 @@ import IS_EMAIL_AVAILABLE from '../../../../queries/checkout/isEmailAvailable.gr
 import Loader from '../../../Loader/Loader';
 
 const ShippingInformationFormSummary = ({ countries, loading, cartId }) => {
-  const [setShippingAddress, { loading: settingShippingAddress }] = useMutation(
-    SET_SHIPPING_ADDRESS
-  );
+  const [
+    setShippingAddress,
+    { data: shippingAddress, loading: settingShippingAddress }
+  ] = useMutation(SET_SHIPPING_ADDRESS);
   const [setBillingAddress] = useMutation(SET_BILLING_ADDRESS);
   const [setGuestEmail] = useMutation(SET_GUEST_EMAIL);
   const [isEmailAvailable, { data }] = useLazyQuery(IS_EMAIL_AVAILABLE);
@@ -47,7 +48,7 @@ const ShippingInformationFormSummary = ({ countries, loading, cartId }) => {
 
   return (
     <>
-      {settingShippingAddress ? (
+      {settingShippingAddress && !shippingAddress ? (
         <Loader />
       ) : (
         <Formik
@@ -64,8 +65,6 @@ const ShippingInformationFormSummary = ({ countries, loading, cartId }) => {
             useForBillingAddress: true
           }}
           validationSchema={checkoutSchema}
-          validateOnChange={false}
-          validateOnBlur
           onSubmit={async (values) => {
             const formValues = {
               ...values
@@ -173,6 +172,9 @@ const ShippingInformationFormSummary = ({ countries, loading, cartId }) => {
                   id="city"
                   placeholder="City"
                 />
+                {errors.city && touched.city && (
+                  <p className="text-red-500 text-xs italic">{errors.city}</p>
+                )}
               </div>
               <div className="mb-6">
                 <label
@@ -200,6 +202,9 @@ const ShippingInformationFormSummary = ({ countries, loading, cartId }) => {
                       </>
                     ) : null}
                   </Field>
+                  {errors.country_code && touched.country_code && (
+                    <p className="text-red-500 text-xs italic">{errors.country_code}</p>
+                  )}
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg
                       className="fill-current h-4 w-4"
