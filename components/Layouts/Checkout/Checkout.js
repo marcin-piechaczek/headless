@@ -66,7 +66,10 @@ const CheckoutLayout = () => {
           <CheckoutContentStyled>
             <CheckoutFormStyled>
               {stepShippingInformation && stepShippingInformation.length ? (
-                <ShippingInformationFormSummary customer={stepShippingInformation[0]} />
+                <ShippingInformationFormSummary
+                  cartId={cartId}
+                  customer={stepShippingInformation[0]}
+                />
               ) : (
                 <ShippingInformationForm
                   countries={countries}

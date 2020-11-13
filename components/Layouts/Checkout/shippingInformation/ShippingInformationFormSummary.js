@@ -1,4 +1,6 @@
-const ShippingInformationFormSummary = ({ customer }) => {
+import EditButton from '../../../Buttons/EditButton';
+
+const ShippingInformationFormSummary = ({ customer, cartId }) => {
   const { city, country, firstname, lastname, postcode, region, street, telephone } = customer;
   return (
     <>
@@ -8,6 +10,7 @@ const ShippingInformationFormSummary = ({ customer }) => {
           <p className="text-gray-700 text-base">{` ${firstname} ${lastname} `}</p>
           <p className="text-gray-700 text-base">{` ${postcode} ${city} `}</p>
           <p className="text-gray-700 text-base">{` ${street} `}</p>
+          {/*<EditButton cartId={cartId} />*/}
         </div>
       </div>
     </>

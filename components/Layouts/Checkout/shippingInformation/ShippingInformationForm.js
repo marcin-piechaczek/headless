@@ -22,22 +22,20 @@ const ShippingInformationFormSummary = ({ countries, loading, cartId }) => {
   const checkoutSchema = Yup.object().shape({
     firstname: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
     lastname: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-    email: Yup.string().email('Invalid email').required('Required'),
-    // .test('dsadasd', 'Email already registered', (email) => {
-    //   if (email) {
-    //     return new Promise((resolve, reject) => {
-    //       isEmailAvailable({
-    //         variables: {
-    //           email
-    //         }
-    //       });
-    //       const emailAvailable = data.isEmailAvailable.is_email_available;
-    //       console.log('emailAvailable', emailAvailable);
-    //       resolve(emailAvailable);
-    //     });
-    //   }
-    //   return false;
-    // }),
+    email: Yup.string()
+      .email('Invalid email')
+      .required('Required')
+      .test('isEmailAvailable', 'Email already registered', async (email) => {
+        if (email) {
+          await isEmailAvailable({
+            variables: {
+              email
+            }
+          });
+          return data?.isEmailAvailable.is_email_available;
+        }
+        return false;
+      }),
     street: Yup.string().required('Required'),
     city: Yup.string().required('Required'),
     region: Yup.string().required('Required'),
