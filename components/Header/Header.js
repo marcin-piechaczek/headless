@@ -9,6 +9,7 @@ import { getCart } from '../../store/reducers/root/cart';
 import { cartTypes } from '../../store/actions/cart';
 import GET_CART_ID from '../../queries/cart/CartId.graphql';
 import GET_CART_ITEMS from '../../queries/cart/CartItems.graphql';
+import Language from '../Language/Language';
 
 const Header = ({ categoryList, store }) => {
   const dispatch = useDispatch();
@@ -145,7 +146,7 @@ const Header = ({ categoryList, store }) => {
                   </svg>
                   {quantity > 0 && <CartItemsStyled>{quantity}</CartItemsStyled>}
                 </button>
-
+                <Language />
                 <div className="ml-3 relative">
                   <div>
                     <button
@@ -169,7 +170,6 @@ const Header = ({ categoryList, store }) => {
                       </svg>
                     </button>
                   </div>
-
                   {/*<div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">*/}
                   {/*  <div*/}
                   {/*    className="py-1 rounded-md bg-white shadow-xs"*/}
@@ -200,7 +200,6 @@ const Header = ({ categoryList, store }) => {
               </div>
             </div>
           </div>
-
           <div className="hidden sm:hidden">
             <div className="px-2 pt-2 pb-3">
               <a

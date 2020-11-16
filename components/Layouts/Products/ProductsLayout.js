@@ -68,11 +68,13 @@ const ProductsLayout = ({ search, filters }) => {
                   }}
                   as={`/${product.url_key + productUrlSuffix}`}>
                   <a>
-                    <Image
-                      src={resolveImage(product.thumbnail.url)}
-                      alt={product.thumbnail.label}
-                      unsized
-                    />
+                    <ProductsImageWrapperStyled>
+                      <Image
+                        src={resolveImage(product.thumbnail.url)}
+                        alt={product.thumbnail.label}
+                        layout="fill"
+                      />
+                    </ProductsImageWrapperStyled>
                   </a>
                 </Link>
               </div>
@@ -128,5 +130,11 @@ const ProductsLayout = ({ search, filters }) => {
     </>
   );
 };
+
+const ProductsImageWrapperStyled = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
 
 export default ProductsLayout;

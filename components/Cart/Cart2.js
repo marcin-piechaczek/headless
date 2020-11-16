@@ -37,7 +37,8 @@ const Cart2 = () => {
                   <Image
                     src={resolveImage(item.product.thumbnail.url)}
                     alt={item.product.thumbnail.label}
-                    unsized
+                    width={50}
+                    height={50}
                   />
                 </CartItemImageStyled>
                 <CartItemQuantityStyled>{item.quantity}</CartItemQuantityStyled>

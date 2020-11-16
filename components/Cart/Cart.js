@@ -26,7 +26,11 @@ const Cart = () => {
           {items.map((item, index) => (
             <CartItemStyled key={index}>
               <CartItemImageStyled>
-                <Image src={resolveImage(item.thumbnail.url)} alt={item.thumbnail.label} unsized />
+                <Image
+                  src={resolveImage(item.thumbnail.url)}
+                  alt={item.thumbnail.label}
+                  layout="fill"
+                />
               </CartItemImageStyled>
               <CartItemQuantityStyled>{item.quantity}</CartItemQuantityStyled>
               <CartItemNameStyled>{item.name}</CartItemNameStyled>

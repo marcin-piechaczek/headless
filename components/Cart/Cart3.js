@@ -32,9 +32,7 @@ const Cart3 = () => {
           {items &&
             items.map((item, index) => (
               <CartItemStyled key={index}>
-                <CartItemImageStyled>
-                  {/*<Image src={resolveImage(item.thumbnail.url)} alt={item.thumbnail.label} unsized />*/}
-                </CartItemImageStyled>
+                <CartItemImageStyled></CartItemImageStyled>
                 <CartItemQuantityStyled>{item.quantity}</CartItemQuantityStyled>
                 <CartItemNameStyled>{item.product.name}</CartItemNameStyled>
               </CartItemStyled>
