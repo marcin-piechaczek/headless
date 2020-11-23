@@ -1,0 +1,24 @@
+query SearchProducts ($query: String) {
+  products(search: $query, pageSize: 5, currentPage: 1){
+    items {
+      id,
+      sku,
+      name,
+      url_key,
+      url_suffix,
+      canonical_url,
+      manufacturer,
+      image{
+        url
+      },
+      price_range{
+        minimum_price {
+          final_price{
+    		currency
+    		value
+  		  }
+        }
+  	  }
+    }
+  }
+}

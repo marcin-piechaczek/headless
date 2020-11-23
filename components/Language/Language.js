@@ -20,13 +20,13 @@ const Language = () => {
 
   const handleChangeLang = async (language) => {
     router.locale = language;
-    router.push('/', undefined, { locale: language });
   };
   return (
     <>
       <select name="lang" value={router.locale} onChange={(e) => handleChangeLang(e.target.value)}>
         <option value="pl">PL</option>
         <option value="en">EN</option>
+        <option value="fr">FR</option>
       </select>
     </>
   );

@@ -2,11 +2,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+Helpful tool - Node Version Manager [NVM](https://github.com/nvm-sh/nvm)
+
+First, run the development server (Node ver.14):
 
 ```bash
-npm run dev
-# or
+nvm use 14
+# then
+yarn install
+# then
 yarn dev
 ```
 

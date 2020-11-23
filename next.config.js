@@ -11,10 +11,6 @@ module.exports = {
     IMAGE_DOMAIN: process.env.IMAGE_DOMAIN,
     VERCEL_URL: process.env.VERCEL_URL
   },
-  i18n: {
-    locales: ['en', 'pl'],
-    defaultLocale: 'en'
-  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.(graphql|gql)$/,

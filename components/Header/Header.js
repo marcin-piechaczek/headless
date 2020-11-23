@@ -10,12 +10,41 @@ import { cartTypes } from '../../store/actions/cart';
 import GET_CART_ID from '../../queries/cart/CartId.graphql';
 import GET_CART_ITEMS from '../../queries/cart/CartItems.graphql';
 import Language from '../Language/Language';
+import SignInWrapper from '../Signin/SignInWrapper';
+import { getStoreSettings } from '../../store/reducers/root/storeSettings';
+import {
+  setSignIn,
+  toggleSearchAction,
+  toggleSearchResultAction
+} from '../../store/actions/storeSettings';
+import Search from '../Search/Search';
+import { setSignInWrapper } from '../../store/actions/storeSettings';
 
 const Header = ({ categoryList, store }) => {
   const dispatch = useDispatch();
   const { isCartOpen } = useSelector(getCart);
+  const { signInWrapperOpen, signInOpen } = useSelector(getStoreSettings);
   const { data } = useQuery(GET_CART_ID);
   const cartId = data?.CartId;
+  const { searchOpen } = useSelector(getStoreSettings);
+  const { searchBlockResultItem } = useSelector(getStoreSettings);
+  const toggleSearch = () => {
+    dispatch(
+      toggleSearchAction({
+        data: {
+          search: !searchOpen
+        }
+      })
+    );
+
+    dispatch(
+      toggleSearchResultAction({
+        data: {
+          search: { state: false, value: '' }
+        }
+      })
+    );
+  };
 
   const { data: products } = useQuery(GET_CART_ITEMS, {
     variables: {
@@ -36,6 +65,27 @@ const Header = ({ categoryList, store }) => {
       data: !isCartOpen
     });
   };
+
+  const toggleSignInWrapper = () => {
+    dispatch(
+      setSignInWrapper({
+        data: {
+          signInWrapper: !signInWrapperOpen
+        }
+      })
+    );
+  };
+
+  const toggleSignIn = () => {
+    dispatch(
+      setSignIn({
+        data: {
+          signIn: !signInOpen
+        }
+      })
+    );
+  };
+
   return (
     <>
       <header>
@@ -102,12 +152,19 @@ const Header = ({ categoryList, store }) => {
                         </a>
                       </Link>
                     ))}
+                    <a
+                      href="/reset-password"
+                      className="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">
+                      Reset password
+                    </a>
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div className="content-center justify-items-center justify-center">
-                  <button className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">
+                  <button
+                    onClick={toggleSearch}
+                    className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -146,10 +203,14 @@ const Header = ({ categoryList, store }) => {
                   </svg>
                   {quantity > 0 && <CartItemsStyled>{quantity}</CartItemsStyled>}
                 </button>
-                <Language />
+                {/*<Language />*/}
                 <div className="ml-3 relative">
                   <div>
                     <button
+                      onClick={() => {
+                        toggleSignIn();
+                        toggleSignInWrapper();
+                      }}
                       className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
                       id="user-menu"
                       aria-label="User menu"
@@ -226,6 +287,10 @@ const Header = ({ categoryList, store }) => {
           </div>
         </nav>
       </header>
+
+      {signInWrapperOpen ? <SignInWrapper /> : null}
+
+      {searchOpen && <Search />}
     </>
   );
 };

@@ -1,0 +1,7 @@
+mutation ForgotPass(
+    $forgotPassEmail: String!,
+) {
+  requestPasswordResetEmail(
+    email: $forgotPassEmail
+  )
+}

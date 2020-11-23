@@ -1,0 +1,11 @@
+mutation SignIn(
+    $signInEmail: String!,
+    $signInPassword: String!
+) {
+  generateCustomerToken(
+    email: $signInEmail
+    password: $signInPassword
+  ) {
+    token
+  }
+}

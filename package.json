@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
+    "dev:debug": "NODE_OPTIONS='--inspect' next dev",
     "start": "next start",
     "lint": "eslint --fix .",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
     "@apollo/client": "^3.2.2",
+    "@unly/universal-language-detector": "^2.0.3",
     "autoprefixer": "^10.0.2",
     "axios": "^0.21.0",
     "formik": "^2.2.5",
@@ -23,7 +24,6 @@
     "postcss-preset-env": "^6.7.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-intl": "^5.10.1",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useRouter} from 'next/router';
 import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -8,6 +9,9 @@ import Loader from '../../Loader/Loader';
 import ProductsLayout from '../Products/ProductsLayout';
 
 const CategoryLayout = ({ filters }) => {
+  const router = useRouter();
+  const searchProducts = (router.query.q ? router.query.q : '');
+
   const { data, error, loading } = useQuery(CATEGORY_QUERY, {
     variables: { filters }
   });
@@ -59,7 +63,7 @@ const CategoryLayout = ({ filters }) => {
             </ul>
           </aside>
         )}
-        <ProductsLayout filters={{ category_id: { eq: category?.id } }} />
+        <ProductsLayout search={searchProducts} filters={{ category_id: { eq: category?.id } }} />
       </CategoryWrapperStyled>
       {/*)}*/}
     </>

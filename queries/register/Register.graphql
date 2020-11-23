@@ -1,0 +1,22 @@
+mutation Register(
+  $firstname: String,
+  $lastname: String,
+  $email: String,
+  $password: String,
+  $isSubscibed: Boolean,
+) {
+  createCustomer(
+    input: {
+      firstname: $firstname
+      lastname: $lastname
+      email: $email
+      password: $password
+      is_subscribed: $isSubscibed
+    }
+  ) {
+    customer {
+      firstname
+      is_subscribed
+    }
+  }
+}

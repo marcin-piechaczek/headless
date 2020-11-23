@@ -36,7 +36,7 @@ const URLResolver = ({ type, urlKey }) => {
   return <Error statusCode={500} />;
 };
 
-URLResolver.getInitialProps = async ({ req, res, query }) => {
+URLResolver.getInitialProps = async ({ req, res, query, locale }) => {
   res?.setHeader('cache-control', 's-maxage=1, stale-while-revalidate');
   const isBrowser = typeof window !== 'undefined';
 
@@ -68,7 +68,7 @@ URLResolver.getInitialProps = async ({ req, res, query }) => {
 
   /** ... if the request is done by the server, then let's load the data in cache of SSR goodness ... */
   if (req) {
-    await useAppConfig(apolloClient);
+    await useAppConfig(apolloClient, locale);
     switch (type) {
       case CONTENT_TYPE.CMS_PAGE:
         // Not implemented...
@@ -81,10 +81,6 @@ URLResolver.getInitialProps = async ({ req, res, query }) => {
         if (/PRODUCTS/.test(data.categoryList[0]?.display_mode)) {
           const productsVar = { variables: { filters: { category_id: { eq: id } } } };
           await useProducts(productsVar, apolloClient);
-          // res.writeHead(200, {
-          //   Location: '/product/dupa.html'
-          // });
-          // res.end();
         }
         break;
       case CONTENT_TYPE.PRODUCT:

@@ -12,7 +12,12 @@ import URLResolver from './_url-resolver';
 import useCategories from '../hooks/useCategories';
 
 export default function Home() {
-  return <div>Index</div>;
+  return (
+    <>
+      <h1>elo</h1>
+      <div>Index</div>
+    </>
+  );
 }
 
 export const getStaticProps = async () => {

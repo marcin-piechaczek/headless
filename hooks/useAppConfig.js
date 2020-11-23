@@ -1,7 +1,7 @@
 import { initializeApollo } from '../lib/apollo';
 import APP_QUERY from '../queries/root/App.graphql';
 
-const useAppConfig = async (client) => {
+const useAppConfig = async (client, locale) => {
   const apolloClient = client || initializeApollo();
 
   const { error, data, loading } = await apolloClient.query({

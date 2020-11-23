@@ -1,0 +1,11 @@
+mutation ResetPassword(
+    $resetPassEmail: String!,
+    $resetPassToken: String!,
+    $resetPassNewPass: String!,
+) {
+  resetPassword(
+    email: $resetPassEmail
+    resetPasswordToken: $resetPassToken
+    newPassword: $resetPassNewPass
+  )
+}
