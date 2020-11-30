@@ -8,10 +8,10 @@ import APP_QUERY from '../../queries/root/App.graphql';
 import Cart2 from '../Cart/Cart2';
 import SignInWrapper from '../Signin/SignInWrapper';
 import useTidioChat from '../../hooks/useTidioChat';
+import Chat from '../Chat/Chat';
 
 export default function Layout({ children }) {
   const router = useRouter();
-  useTidioChat();
 
   const { data, loading } = useQuery(APP_QUERY, {});
 
@@ -25,6 +25,7 @@ export default function Layout({ children }) {
       <Head>
         <title>{store.default_title}</title>
       </Head>
+      <Chat />
       <Header categoryList={categories} store={store} />
       <main style={{ position: 'relative' }}>{children}</main>
       <Cart2 />
