@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 import { resolveImage } from '../../lib/resolve-image';
 import { getCart } from '../../store/reducers/root/cart';
 import { cartTypes } from '../../store/actions/cart';
@@ -15,10 +16,10 @@ import { getStoreSettings } from '../../store/reducers/root/storeSettings';
 import {
   setSignIn,
   toggleSearchAction,
-  toggleSearchResultAction
+  toggleSearchResultAction,
+  setSignInWrapper
 } from '../../store/actions/storeSettings';
 import Search from '../Search/Search';
-import { setSignInWrapper } from '../../store/actions/storeSettings';
 
 const Header = ({ categoryList, store }) => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const Header = ({ categoryList, store }) => {
   const cartId = data?.CartId;
   const { searchOpen } = useSelector(getStoreSettings);
   const { searchBlockResultItem } = useSelector(getStoreSettings);
+  const router = useRouter();
+
   const toggleSearch = () => {
     dispatch(
       toggleSearchAction({
@@ -56,7 +59,7 @@ const Header = ({ categoryList, store }) => {
   const quantity = products?.cart.total_quantity;
 
   const logo = store?.header_logo_src
-    ? resolveImage(store.base_media_url + 'logo/' + store.header_logo_src)
+    ? resolveImage(`${store.base_media_url}logo/${store.header_logo_src}`)
     : '/static/logo.png';
 
   const toggleCart = () => {
@@ -142,21 +145,21 @@ const Header = ({ categoryList, store }) => {
                         href={{
                           pathname: '_url-resolver',
                           query: {
-                            pathname: `/${category.url_key + '.html'}`,
+                            pathname: `/${`${category.url_key}.html`}`,
                             type: 'CATEGORY'
                           }
                         }}
-                        as={category.url_key + '.html'}>
+                        as={`${category.url_key}.html`}>
                         <a className="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">
                           {category.name}
                         </a>
                       </Link>
                     ))}
-                    <a
-                      href="/reset-password"
-                      className="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">
-                      Reset password
-                    </a>
+                    <Link locale={router.locale} href="reset-password">
+                      <a className="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">
+                        Reset password
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -176,11 +179,11 @@ const Header = ({ categoryList, store }) => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       className="icon-icon-5Yc">
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
                     </svg>
                   </button>
-                  {/*<span className="text-gray-400">Search</span>*/}
+                  {/* <span className="text-gray-400">Search</span> */}
                 </div>
                 <button
                   onClick={toggleCart}
@@ -197,13 +200,13 @@ const Header = ({ categoryList, store }) => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     className="icon-icon-5Yc">
-                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <path d="M16 10a4 4 0 0 1-8 0" />
                   </svg>
                   {quantity > 0 && <CartItemsStyled>{quantity}</CartItemsStyled>}
                 </button>
-                {/*<Language />*/}
+                <Language />
                 <div className="ml-3 relative">
                   <div>
                     <button
@@ -226,37 +229,37 @@ const Header = ({ categoryList, store }) => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         className="icon-icon-5Yc">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
                       </svg>
                     </button>
                   </div>
-                  {/*<div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">*/}
-                  {/*  <div*/}
-                  {/*    className="py-1 rounded-md bg-white shadow-xs"*/}
-                  {/*    role="menu"*/}
-                  {/*    aria-orientation="vertical"*/}
-                  {/*    aria-labelledby="user-menu">*/}
-                  {/*    <a*/}
-                  {/*      href="#"*/}
-                  {/*      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"*/}
-                  {/*      role="menuitem">*/}
-                  {/*      Your Profile*/}
-                  {/*    </a>*/}
-                  {/*    <a*/}
-                  {/*      href="#"*/}
-                  {/*      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"*/}
-                  {/*      role="menuitem">*/}
-                  {/*      Settings*/}
-                  {/*    </a>*/}
-                  {/*    <a*/}
-                  {/*      href="#"*/}
-                  {/*      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"*/}
-                  {/*      role="menuitem">*/}
-                  {/*      Sign out*/}
-                  {/*    </a>*/}
-                  {/*  </div>*/}
-                  {/*</div>*/}
+                  {/* <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"> */}
+                  {/*  <div */}
+                  {/*    className="py-1 rounded-md bg-white shadow-xs" */}
+                  {/*    role="menu" */}
+                  {/*    aria-orientation="vertical" */}
+                  {/*    aria-labelledby="user-menu"> */}
+                  {/*    <a */}
+                  {/*      href="#" */}
+                  {/*      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" */}
+                  {/*      role="menuitem"> */}
+                  {/*      Your Profile */}
+                  {/*    </a> */}
+                  {/*    <a */}
+                  {/*      href="#" */}
+                  {/*      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" */}
+                  {/*      role="menuitem"> */}
+                  {/*      Settings */}
+                  {/*    </a> */}
+                  {/*    <a */}
+                  {/*      href="#" */}
+                  {/*      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" */}
+                  {/*      role="menuitem"> */}
+                  {/*      Sign out */}
+                  {/*    </a> */}
+                  {/*  </div> */}
+                  {/* </div> */}
                 </div>
               </div>
             </div>

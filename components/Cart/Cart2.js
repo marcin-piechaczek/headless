@@ -9,6 +9,7 @@ import { getCart } from '../../store/reducers/root/cart';
 import { resolveImage } from '../../lib/resolve-image';
 import { cartTypes } from '../../store/actions/cart';
 import GET_CART_ITEMS from '../../queries/cart/CartItems.graphql';
+import { useRouter } from 'next/router';
 
 const Cart2 = () => {
   const { data } = useQuery(GET_CART_ID);
@@ -22,6 +23,7 @@ const Cart2 = () => {
   });
 
   const items = products?.cart.items;
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const { isCartOpen } = useSelector(getCart);
@@ -46,7 +48,25 @@ const Cart2 = () => {
               </CartItemStyled>
             ))}
           <CheckoutButtonStyled>
-            <Link href="/checkout">
+            {/*<Link href="/checkout" locale={router.locale}>*/}
+            {/*  <a*/}
+            {/*    onClick={() =>*/}
+            {/*      dispatch({*/}
+            {/*        type: cartTypes.STORE_SETTINGS_TOGGLE_CART*/}
+            {/*      })*/}
+            {/*    }>*/}
+            {/*    Checkout*/}
+            {/*  </a>*/}
+            {/*</Link>*/}
+            <Link
+              href={{
+                pathname: '_url-resolver',
+                query: {
+                  pathname: `checkout`,
+                  type: 'CHECKOUT'
+                }
+              }}
+              as={`/checkout`}>
               <a
                 onClick={() =>
                   dispatch({

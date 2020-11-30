@@ -1,13 +1,16 @@
 import Head from 'next/head';
 import React from 'react';
 import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 import Header from '../Header/Header';
 import Loader from '../Loader/Loader';
 import APP_QUERY from '../../queries/root/App.graphql';
 import Cart2 from '../Cart/Cart2';
-import SignInWrapper from "../Signin/SignInWrapper";
+import SignInWrapper from '../Signin/SignInWrapper';
+import Chat from '../TidioChat/Chat';
 
 export default function Layout({ children }) {
+  const router = useRouter();
 
   const { data, loading } = useQuery(APP_QUERY, {});
 
@@ -24,6 +27,7 @@ export default function Layout({ children }) {
       <Header categoryList={categories} store={store} />
       <main style={{ position: 'relative' }}>{children}</main>
       <Cart2 />
+      <Chat />
       {store.copyright && <footer>{data.storeConfig.copyright}</footer>}
     </>
   );

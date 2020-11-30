@@ -1,4 +1,9 @@
+import cookie from 'js-cookie';
 import { storeTypes } from '../../actions/storeSettings';
+import useLogger from '../../../hooks/useLogger';
+
+const test = cookie.get('language');
+useLogger('!!!!!!! COOOKIE !!!!!!!', test);
 
 const initialState = {
   activeLanguage: '',
@@ -6,8 +11,8 @@ const initialState = {
   signInOpen: false,
   registerOpen: false,
   searchOpen: false,
-  searchBlockResultItem: {state: false, value: ''},
-  forgotPassOpen: false,
+  searchBlockResultItem: { state: false, value: '' },
+  forgotPassOpen: false
 };
 
 export default function storeSettings(state = initialState, action) {
@@ -15,7 +20,7 @@ export default function storeSettings(state = initialState, action) {
     case storeTypes.STORE_SETTINGS_SET_LANGUAGE:
       return {
         ...state,
-        activeLanguage: action.data.language
+        activeLanguage: action.payload.data.language
       };
     case storeTypes.STORE_SETTINGS_SIGN_IN_WRAPPER:
       return {

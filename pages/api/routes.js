@@ -3,7 +3,6 @@ export default function handler(req, res) {
 
   if (method === 'POST') {
     const { url, lang } = body;
-    console.log(url, lang);
     let redirectUrl = url;
 
     if (lang === 'en' && url === '/graty.html') {

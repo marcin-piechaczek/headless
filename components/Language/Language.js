@@ -2,11 +2,16 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import useSWR, { mutate } from 'swr';
 import axios from 'axios';
+import { useApolloClient } from '@apollo/client';
+import cookie from 'js-cookie';
+import activeLanguage from '../../lib/i18n';
 
 const Language = () => {
   const router = useRouter();
   const [lang, setLang] = useState(router.defaultLocale);
   const [redirectUrl, setRedirectUrl] = useState(router.asPath);
+  const client = useApolloClient();
+
   const fetcher = (url) =>
     axios
       .post(url, {
@@ -20,6 +25,10 @@ const Language = () => {
 
   const handleChangeLang = async (language) => {
     router.locale = language;
+    activeLanguage(language);
+    cookie.set('language', language);
+    localStorage.removeItem('cartId');
+    window.location.href = `/${language}`;
   };
   return (
     <>
