@@ -54,7 +54,8 @@ module.exports = {
        */
       {
         source: `/:pathname*`,
-        destination: '/_url-resolver'
+        destination: '/_url-resolver',
+        locale: false
       }
     ];
   }
